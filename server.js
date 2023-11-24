@@ -37,9 +37,17 @@ const quizexamrecordSchema = new Schema({
 
 const Quizexamrecord = mongoose.model('Quizexamrecord', quizexamrecordSchema);
 
+//Add User at start
 Quizexamrecord.create({name: 'Chow Ho Kin Wilkins', sid: '300367633'})
       .then(() => console.log('Record added!'))
       .catch((err) => console.log(err));
+
+//Also add user when visited
+app.get("/", (req, res) => {
+  Quizexamrecord.create({name: 'Chow Ho Kin Wilkins', sid: '300367633'})
+      .then(() => res.send(`<h1>User Added!</h1>`))
+      .catch(() => res.send(`<h1>Error!</h1>`));
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
